@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Board = ({ onGameOver, round }) => {
+const Board = ({ onGameOver, round, onNextRound}) => {
     const [colors, setColors] = useState([]);
     const [oddIndex, setOddIndex] = useState(0);
   
@@ -18,7 +18,7 @@ const Board = ({ onGameOver, round }) => {
     
       const slightlyDifferentColor = (baseColor) => {
         const rgb = baseColor.match(/\d+/g).map(Number); // regex to match, convert to number with map
-        const diff = 30; // Will later adjust number to control how different the odd color is
+        const diff = Math.max(5, 30 - round * 2); // decrease color difference as round increase
         const newRgb = rgb.map((value) => Math.min(255, Math.max(0, value + diff))); //add difference but stay within limit
         return `rgb(${newRgb[0]}, ${newRgb[1]}, ${newRgb[2]})`;
     };
@@ -39,8 +39,8 @@ const Board = ({ onGameOver, round }) => {
 
     const handleSquareClick = (index) => {
         if (index === oddIndex) {
-          alert('Correct!');
-          // will add trigger function to move to next round
+          onNextRound();
+
         } else {
           alert('Game Over');
           onGameOver();

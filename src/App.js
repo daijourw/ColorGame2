@@ -20,9 +20,13 @@ function App() {
   };
 
   const handleGameOver = () => {
-    setScreen('menu');
+    setScreen('menu'); // Transition back to Main menu when game over
     setRound(1);
-  }
+  };
+
+  const handleNextRound = () => {
+    setRound((prevRound) => prevRound +1); //increment round
+  };
 
   return (
     <div className="App">
@@ -30,7 +34,7 @@ function App() {
       {/* if screen state menu, load main menu */}
       {screen === 'menu' && <MainMenu onStart={handleStart} />}
       {screen === 'countdown' && <Countdown onCountdownEnd={handleCountdownEnd} />}
-      {screen === 'game' && <Board onGameOver={handleGameOver} round={round} />}
+      {screen === 'game' && <Board onGameOver={handleGameOver} round={round} onNextRound = {handleNextRound} />}
     </div>
   );
 }
