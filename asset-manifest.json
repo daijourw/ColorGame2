@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ColorGame2/static/css/main.35891276.css",
-    "main.js": "/ColorGame2/static/js/main.570cb914.js",
+    "main.css": "/ColorGame2/static/css/main.e01a089a.css",
+    "main.js": "/ColorGame2/static/js/main.25e5ec83.js",
     "static/js/453.8aefbf78.chunk.js": "/ColorGame2/static/js/453.8aefbf78.chunk.js",
     "index.html": "/ColorGame2/index.html",
-    "main.35891276.css.map": "/ColorGame2/static/css/main.35891276.css.map",
-    "main.570cb914.js.map": "/ColorGame2/static/js/main.570cb914.js.map",
+    "main.e01a089a.css.map": "/ColorGame2/static/css/main.e01a089a.css.map",
+    "main.25e5ec83.js.map": "/ColorGame2/static/js/main.25e5ec83.js.map",
     "453.8aefbf78.chunk.js.map": "/ColorGame2/static/js/453.8aefbf78.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.35891276.css",
-    "static/js/main.570cb914.js"
+    "static/css/main.e01a089a.css",
+    "static/js/main.25e5ec83.js"
   ]
 }
