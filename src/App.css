@@ -18,3 +18,10 @@
   cursor: pointer;
   border: 1px solid #ccc;
 }
+
+.timer {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}

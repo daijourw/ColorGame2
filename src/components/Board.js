@@ -3,8 +3,29 @@ import React, { useState, useEffect } from 'react';
 const Board = ({ onGameOver, round, onNextRound}) => {
     const [colors, setColors] = useState([]);
     const [oddIndex, setOddIndex] = useState(0);
-  
-    useEffect(() => {generateColors();}, [round]);
+    const [timeLeft, setTimeLeft] = useState(3); // First round 5 seconds
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+        setTimeLeft((prevTime) => {
+            if (prevTime <= 1) {
+            clearInterval(timer); // Stop the timer if time runs out
+            onGameOver()
+            return 0;
+            }
+            return prevTime - 1; // Decrement timer
+        });
+        }, 1000);
+        return () => clearInterval(timer);
+        }, [onGameOver]);
+
+        useEffect(() => {
+            generateColors();
+    }, [round]);
+    
+    
+    
+    
 
     // above will generate colors when the component mounts or round changes
     // below helper functions to generate colors
@@ -40,25 +61,28 @@ const Board = ({ onGameOver, round, onNextRound}) => {
     const handleSquareClick = (index) => {
         if (index === oddIndex) {
           onNextRound();
-
+          setTimeLeft((prevTime) => prevTime + 1); //add 1 seconds if correct choice
         } else {
           alert('Game Over');
           onGameOver();
         }
     };
     return (
+        <div>
+        <div className="timer">Time Left: {timeLeft} seconds</div>
         <div className="board">
-            {colors.map((color, index) => (
-                <div
-                    key={index}
-                    onClick={() => handleSquareClick(index)}
-                    className="square"
-                    style={{
-                    backgroundColor: color,
-                    }}
-                ></div>
-            ))}
+          {colors.map((color, index) => (
+            <div
+              key={index}
+              onClick={() => handleSquareClick(index)}
+              className="square"
+              style={{
+                backgroundColor: color,
+              }}
+            ></div>
+          ))}
         </div>
+      </div>
     );
 };
 
