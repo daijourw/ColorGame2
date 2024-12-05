@@ -1,6 +1,6 @@
 {
   "name": "template-react",
-  "homepage": "https://daijourw.github.io/ColorGame2"
+  "homepage": "https://daijourw.github.io/ColorGame2",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
