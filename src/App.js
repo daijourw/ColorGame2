@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import MainMenu from './components/MainMenu';
 import Countdown from './components/Countdown';
@@ -10,9 +10,27 @@ function App() {
   // track which screen to show: main menu, or countdown, or game
   const [screen, setScreen] = useState('menu');
   const [round, setRound] = useState(1);
+  const [score, setScore] = useState(0);
+  const [username, setUsername] = useState('');
+  const [leaderboard, setLeaderboard] = useState([]);
+
+  useEffect(() => {
+    const storedLeaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+    setLeaderboard(storedLeaderboard);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+  }, [leaderboard]);
 
   const handleStart = () => {
-    setScreen('countdown'); // Transition to the Countdown screen
+    if (!username.trim()) {
+      alert('Enter a username to play!');
+      return;
+    }
+    setScreen('game');
+    setRound(1);
+    setScore(0);
   };
 
   const handleCountdownEnd = () => {
@@ -20,21 +38,50 @@ function App() {
   };
 
   const handleGameOver = () => {
-    setScreen('menu'); // Transition back to Main menu when game over
-    setRound(1);
+
+    let newLeaderboard = [];
+    for (let i = 0; i < leaderboard.length; i++) {
+      newLeaderboard.push(leaderboard[i]);
+    }
+  
+    if (score > 0 && (newLeaderboard.length < 3 || score > newLeaderboard[newLeaderboard.length - 1].score)) {
+      newLeaderboard.push({ name: username, score }); // add new score
+      newLeaderboard.sort(function (a, b) {
+        return b.score - a.score;
+      });
+  
+      // Keep only the top 3
+      newLeaderboard = newLeaderboard.slice(0, 3);
+    }
+  
+    // Update state
+    setLeaderboard(newLeaderboard);
+    setScreen('menu');
   };
 
   const handleNextRound = () => {
-    setRound((prevRound) => prevRound +1); //increment round
+    setRound((prevRound) => prevRound +1);
+    setScore((prevScore) => prevScore + 1);
   };
 
   return (
     <div className="App">
 
-      {/* if screen state menu, load main menu */}
-      {screen === 'menu' && <MainMenu onStart={handleStart} />}
+      {screen === 'menu' && (
+        <MainMenu 
+        username={username}
+        setUsername={setUsername}
+        leaderboard={leaderboard}
+        onStart={handleStart} 
+        />
+      )}
       {screen === 'countdown' && <Countdown onCountdownEnd={handleCountdownEnd} />}
-      {screen === 'game' && <Board onGameOver={handleGameOver} round={round} onNextRound = {handleNextRound} />}
+      {screen === 'game' && (
+        <div>
+          <div className="score">Score: {score}</div> 
+          <Board onGameOver={handleGameOver} round={round} onNextRound = {handleNextRound} />
+        </div>
+      )}
     </div>
   );
 }
