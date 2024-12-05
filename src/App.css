@@ -2,3 +2,19 @@
   text-align: center;
   padding: 20px;
 }
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 100px);  
+  grid-gap: 10px;                       
+  justify-content: center;                
+  align-items: center;                     
+  margin-top: 50px;                       
+}
+
+.square {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}

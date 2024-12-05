@@ -47,17 +47,14 @@ const Board = ({ onGameOver, round, onNextRound}) => {
         }
     };
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '50px' }}>
+        <div className="board">
             {colors.map((color, index) => (
                 <div
                     key={index}
                     onClick={() => handleSquareClick(index)}
+                    className="square"
                     style={{
                     backgroundColor: color,
-                    width: '100px',
-                    height: '100px',
-                    cursor: 'pointer',
-                    border: '1px solid #ccc',
                     }}
                 ></div>
             ))}
