@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 const Board = ({ onGameOver, round, onNextRound}) => {
     const [colors, setColors] = useState([]);
     const [oddIndex, setOddIndex] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(3); // First round 5 seconds
+    const [timeLeft, setTimeLeft] = useState(2); // First round 2 seconds
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -39,7 +39,7 @@ const Board = ({ onGameOver, round, onNextRound}) => {
     
       const slightlyDifferentColor = (baseColor) => {
         const rgb = baseColor.match(/\d+/g).map(Number); // regex to match, convert to number with map
-        const diff = Math.max(5, 30 - round * 2); // decrease color difference as round increase
+        const diff = Math.max(5, 40 - round * 2); // decrease color difference as round increase
         const newRgb = rgb.map((value) => Math.min(255, Math.max(0, value + diff))); //add difference but stay within limit
         return `rgb(${newRgb[0]}, ${newRgb[1]}, ${newRgb[2]})`;
     };
@@ -63,7 +63,6 @@ const Board = ({ onGameOver, round, onNextRound}) => {
           onNextRound();
           setTimeLeft((prevTime) => prevTime + 1); //add 1 seconds if correct choice
         } else {
-          alert('Game Over');
           onGameOver();
         }
     };
@@ -77,7 +76,7 @@ const Board = ({ onGameOver, round, onNextRound}) => {
               onClick={() => handleSquareClick(index)}
               className="square"
               style={{
-                backgroundColor: color,
+                backgroundColor: color, // Apply the color dynamically
               }}
             ></div>
           ))}

@@ -5,7 +5,8 @@ const MainMenu = ({ username, setUsername, leaderboard, onStart }) => {
     <div className="main-menu">
       <h1>Color Game</h1>
 
-      <div style={{ padding: '10px', fontSize: '18px', color: '#333', maxWidth: '60%', margin: 'auto',}}>
+      {/* Instructions Section */}
+      <div className="instructions">
         <h3>How to Play:</h3>
         <p>
           The Color Game tests your reflexes and ability to distinguish different colors. On the
@@ -23,7 +24,7 @@ const MainMenu = ({ username, setUsername, leaderboard, onStart }) => {
         <p>Press the play button to start!</p>
       </div>
 
-
+      {/* Leaderboard Section */}
       <div className="leaderboard">
         <h2>Leaderboard</h2>
         <ul>
@@ -38,6 +39,8 @@ const MainMenu = ({ username, setUsername, leaderboard, onStart }) => {
           )}
         </ul>
       </div>
+
+      {/* Username Input */}
       <div className="username-input">
         <input
           type="text"
@@ -46,6 +49,8 @@ const MainMenu = ({ username, setUsername, leaderboard, onStart }) => {
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
+
+      {/* Play Button */}
       <button onClick={onStart}>Play</button>
     </div>
   );

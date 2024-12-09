@@ -21,7 +21,7 @@ return () => clearInterval(timer);
 }, [onCountdownEnd]);
 
 return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+    <div>
         <h2>Get Ready...</h2>
         <h1>{count}</h1>
     </div>

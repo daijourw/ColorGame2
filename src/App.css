@@ -1,17 +1,119 @@
-.App {
-  text-align: center;
-  padding: 20px;
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Global Styles */
+body {
+  font-family: 'Press Start 2P', monospace;
+  background-color: #000; /* Black background for the arcade feel */
+  color: #0ff; /* Neon cyan text */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
+/* Main Menu */
+.main-menu {
+  text-align: center;
+  max-width: 900px;
+  margin: auto;
+  background: linear-gradient(to bottom, #111, #222);
+  padding: 20px;
+  border: 5px solid #0ff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #0ff;
+}
+
+.main-menu h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px #0ff, 0 0 20px #00f;
+}
+
+.main-menu .leaderboard {
+  margin-bottom: 20px;
+}
+
+.main-menu .leaderboard h2 {
+  font-size: 1.5rem;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #00f;
+}
+
+.main-menu .leaderboard ul {
+  list-style: none;
+  padding: 0;
+}
+
+.main-menu .leaderboard li {
+  font-size: 1rem;
+  text-shadow: 0 0 5px #0ff;
+}
+
+/* Username Input */
+.username-input input {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1rem;
+  padding: 5px;
+  border: 3px solid #0ff;
+  border-radius: 5px;
+  background-color: #000;
+  color: #0ff;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+button {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: none;
+  background-color: #0ff;
+  color: #000;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #0ff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #0ff, 0 0 30px #0ff;
+}
+
+/* Instructions */
+.instructions {
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90%;
+  font-size: 1rem;
+  text-align: justify;
+  line-height: 2;
+  background-color: #111;
+  padding: 15px;
+  border: 2px solid #0ff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #0ff;
+}
+
+/* Game Board */
 .board {
   display: grid;
-  grid-template-columns: repeat(5, 100px);  
-  grid-gap: 10px;                       
-  justify-content: center;                
-  align-items: center;                     
-  margin-top: 50px;                       
+  grid-template-columns: repeat(5, 100px); /* Adjust the number of columns based on the game */
+  grid-gap: 10px; /* Space between squares */
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f7f7; 
+  border: 5px solid #0ff; 
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 20px #0ff;
+  margin-top: 20px;
 }
 
+/* Squares */
 .square {
   width: 100px;
   height: 100px;
@@ -19,9 +121,10 @@
   border: 1px solid #ccc;
 }
 
+/* Timer and Score */
 .timer {
   font-size: 1.5rem;
-  color: #333;
+  color: #fff;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -38,55 +141,43 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.main-menu {
+
+/* Game Over Screen */
+.game-over {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #111;
+  color: #0ff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #0ff;
   text-align: center;
-  margin-top: 50px;
+  z-index: 1000; /* Ensure it is on top of other content */
+  width: 300px;
 }
 
-.leaderboard {
-  margin: 20px auto;
-  max-width: 300px;
-  text-align: left;
+.game-over h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
 }
 
-.leaderboard h2 {
-  text-align: center;
-}
-
-.leaderboard ul {
-  list-style: none;
-  padding: 0;
-}
-
-.leaderboard li {
-  background: #f4f4f4;
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.username-input {
-  margin: 20px 0;
-}
-
-.username-input input {
-  padding: 10px;
+.game-over button {
+  font-family: 'Press Start 2P', monospace;
   font-size: 1rem;
-  width: 80%;
-  max-width: 300px;
-}
-
-button {
   padding: 10px 20px;
-  font-size: 1rem;
-  background-color: #007bff;
-  color: white;
   border: none;
-  border-radius: 5px;
+  background-color: #0ff;
+  color: #000;
   cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #0ff;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin: 10px;
 }
 
-button:hover {
-  background-color: #0056b3;
+.game-over button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #0ff, 0 0 30px #0ff;
 }

@@ -3,7 +3,7 @@ import './App.css';
 import MainMenu from './components/MainMenu';
 import Countdown from './components/Countdown';
 import Board from './components/Board';
-
+import GameOver from './components/GameOver';
 
 function App() {
 
@@ -28,7 +28,7 @@ function App() {
       alert('Enter a username to play!');
       return;
     }
-    setScreen('game');
+    setScreen('countdown');
     setRound(1);
     setScore(0);
   };
@@ -38,25 +38,7 @@ function App() {
   };
 
   const handleGameOver = () => {
-
-    let newLeaderboard = [];
-    for (let i = 0; i < leaderboard.length; i++) {
-      newLeaderboard.push(leaderboard[i]);
-    }
-  
-    if (score > 0 && (newLeaderboard.length < 3 || score > newLeaderboard[newLeaderboard.length - 1].score)) {
-      newLeaderboard.push({ name: username, score }); // add new score
-      newLeaderboard.sort(function (a, b) {
-        return b.score - a.score;
-      });
-  
-      // Keep only the top 3
-      newLeaderboard = newLeaderboard.slice(0, 3);
-    }
-  
-    // Update state
-    setLeaderboard(newLeaderboard);
-    setScreen('menu');
+    setScreen('gameOver');
   };
 
   const handleNextRound = () => {
@@ -64,9 +46,39 @@ function App() {
     setScore((prevScore) => prevScore + 1);
   };
 
+    // Return to main menu
+    const handleReturnToMenu = () => {
+
+      let newLeaderboard = [];
+      for (let i = 0; i < leaderboard.length; i++) {
+        newLeaderboard.push(leaderboard[i]);
+      }
+    
+      if (score > 0 && (newLeaderboard.length < 3 || score > newLeaderboard[newLeaderboard.length - 1].score)) {
+        newLeaderboard.push({ name: username, score }); // add new score
+        newLeaderboard.sort(function (a, b) {
+          return b.score - a.score;
+        });
+    
+        // Keep only the top 3
+        newLeaderboard = newLeaderboard.slice(0, 3);
+      }
+    
+      // Update state
+      setLeaderboard(newLeaderboard);
+      setScreen('menu');
+    };
+  
+    // Play again, restart the game
+    const handlePlayAgain = () => {
+      setScreen('countdown');
+      setRound(1);
+      setScore(0);
+    };
+
   return (
     <div className="App">
-
+      {/* Main Menu Screen */}
       {screen === 'menu' && (
         <MainMenu 
         username={username}
@@ -75,12 +87,25 @@ function App() {
         onStart={handleStart} 
         />
       )}
+      {/* Countdown Screen */}
       {screen === 'countdown' && <Countdown onCountdownEnd={handleCountdownEnd} />}
+      {/* Game Screen */}
       {screen === 'game' && (
-        <div>
-          <div className="score">Score: {score}</div> 
-          <Board onGameOver={handleGameOver} round={round} onNextRound = {handleNextRound} />
-        </div>
+        <Board
+          round={round}
+          score={score}
+          onGameOver={handleGameOver}
+          onNextRound={handleNextRound}
+        />
+      )}
+
+      {/* Game Over Screen */}
+      {screen === 'gameOver' && (
+        <GameOver
+          score={score}
+          onPlayAgain={handlePlayAgain}
+          onReturnToMenu={handleReturnToMenu}
+        />
       )}
     </div>
   );
