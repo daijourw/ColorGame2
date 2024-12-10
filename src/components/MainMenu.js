@@ -1,5 +1,17 @@
 import React from 'react';
 
+/**
+ * MainMenu component that serves as the starting screen of the game.
+ * Allows the player to view the leaderboard, enter a username, and start the game.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.username - The current username entered by the player.
+ * @param {function} props.setUsername - Function to update the player's username.
+ * @param {Array<{name: string, score: number}>} props.leaderboard - List of top players with their scores.
+ * @param {function} props.onStart - Callback to start the game.
+ * @returns {JSX.Element} The rendered MainMenu component.
+ */
+
 const MainMenu = ({ username, setUsername, leaderboard, onStart }) => {
   return (
     <div className="main-menu">

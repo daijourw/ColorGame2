@@ -1,8 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
+/**
+ * Countdown component that displays a countdown timer before the game starts.
+ *
+ * @param {Object} props - The component props.
+ * @param {function} props.onCountdownEnd - Callback triggered when the countdown finishes.
+ * @returns {JSX.Element} The rendered Countdown component.
+ */
+
 const Countdown = ({ onCountdownEnd }) => {
+    /**
+   * The current countdown number.
+   * @type {number}
+   */
   const [count, setCount] = useState(5); // Start countdown at 5 seconds
 
+  //countdown timer
   useEffect(() => {
     const timer = setInterval(() => {
     // pass previous count value to setcount 

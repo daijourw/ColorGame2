@@ -5,13 +5,41 @@ import Countdown from './components/Countdown';
 import Board from './components/Board';
 import GameOver from './components/GameOver';
 
+/**
+ * Main application component.
+ * Manages the different screens (menu, countdown, game, game over) and overall state of the game.
+ */
+
 function App() {
 
-  // track which screen to show: main menu, or countdown, or game
+  /**
+   * Tracks the current screen: 'menu', 'countdown', 'game', 'gameOver'.
+   * @type {string}
+   */
   const [screen, setScreen] = useState('menu');
+
+  /**
+   * Tracks the current game round.
+   * @type {number}
+   */
   const [round, setRound] = useState(1);
+
+  /**
+   * Tracks the player's current score.
+   * @type {number}
+   */
   const [score, setScore] = useState(0);
+
+  /**
+   * Stores the player's username.
+   * @type {string}
+   */
   const [username, setUsername] = useState('');
+
+  /**
+   * Leaderboard data containing player names and scores.
+   * @type {Array<{name: string, score: number}>}
+   */
   const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
@@ -23,6 +51,7 @@ function App() {
     localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
   }, [leaderboard]);
 
+  //start game from main menu, and check that username has been entered
   const handleStart = () => {
     if (!username.trim()) {
       alert('Enter a username to play!');
@@ -33,20 +62,23 @@ function App() {
     setScore(0);
   };
 
+  // Transition to Game screen after countdown
   const handleCountdownEnd = () => {
-    setScreen('game'); // Transition to Game screen after countdown
+    setScreen('game');
   };
 
+  //Transitition to Game over screen
   const handleGameOver = () => {
     setScreen('gameOver');
   };
 
+  //increment round and score
   const handleNextRound = () => {
     setRound((prevRound) => prevRound +1);
     setScore((prevScore) => prevScore + 1);
   };
 
-    // Return to main menu
+    // Return to main menu and add player to leaderboard if score is in the top 3
     const handleReturnToMenu = () => {
 
       let newLeaderboard = [];
